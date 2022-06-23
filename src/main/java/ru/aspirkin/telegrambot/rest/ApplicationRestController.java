@@ -19,13 +19,25 @@ import ru.aspirkin.telegrambot.service.EntitiesService;
  * @since 19.05.2022
  */
 @RestController
-public class applicationRestController
+public class ApplicationRestController
 {
     private final EntitiesService entitiesService;
 
-    public applicationRestController(EntitiesService entitiesService)
+    public ApplicationRestController(EntitiesService entitiesService)
     {
         this.entitiesService = entitiesService;
+    }
+
+    @GetMapping(value = "/rest/clients", params = "name")
+    public Client getClientByName(@RequestParam String name)
+    {
+        return entitiesService.getClientByName(name);
+    }
+
+    @GetMapping(value = "/rest/orders", params = "status")
+    public List<ClientOrder> getOrdersByStatus(@RequestParam Integer status)
+    {
+        return entitiesService.getOrdersByStatus(status);
     }
 
     @GetMapping("/rest/clients")
@@ -40,12 +52,6 @@ public class applicationRestController
         return entitiesService.getClientById(id);
     }
 
-    @GetMapping(value = "/rest/clients", params = "name")
-    public Client getClientByName(@RequestParam String name)
-    {
-        return entitiesService.getClientByName(name);
-    }
-
     @GetMapping("/rest/orders")
     public List<ClientOrder> getAllOrders()
     {
@@ -56,12 +62,6 @@ public class applicationRestController
     public ClientOrder getOrderById(@RequestParam Long id)
     {
         return entitiesService.getOrderById(id);
-    }
-
-    @GetMapping(value = "/rest/orders", params = "status")
-    public List<ClientOrder> getOrdersByStatus(@RequestParam Integer status)
-    {
-        return entitiesService.getOrdersByStatus(status);
     }
 
     @GetMapping("/rest/products")

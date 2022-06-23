@@ -55,9 +55,10 @@ public class EntitiesServiceImpl implements EntitiesService
     @Override
     public Client getClientByName(String name)
     {
-        Client exampleClient = new Client();
-        exampleClient.setFullName(name);
-        return clientRepository.findOne(Example.of(exampleClient)).orElse(null);
+        return clientRepository.findFirstByFullName(name);
+        //        Client exampleClient = new Client();
+        //        exampleClient.setFullName(name);
+        //        return clientRepository.findOne(Example.of(exampleClient)).orElse(null);
     }
 
     @Override

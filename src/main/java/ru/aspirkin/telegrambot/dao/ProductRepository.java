@@ -18,7 +18,8 @@ import ru.aspirkin.telegrambot.entities.Product;
 @RepositoryRestResource(path = "products", collectionResourceRel = "products")
 public interface ProductRepository extends JpaRepository<Product, Long>
 {
-    String GET_ALL_PRODUCT_QUERY = "from Product where id in (from OrderProduct where clientOrder.client.id = "
+    String GET_ALL_PRODUCT_QUERY = "from Product where id in (select product.id from OrderProduct where clientOrder"
+            + ".client.id = "
             + ":clientId) ";
 
     @Query(GET_ALL_PRODUCT_QUERY)
@@ -29,4 +30,10 @@ public interface ProductRepository extends JpaRepository<Product, Long>
 
     @Query(GET_TOP_POPULAR_QUERY)
     List<Product> getTopPopular();
+
+    Product findByName(String name);
+
+    Product getByName(String name);
+
+    List<Product> findByCategoryId(Long id);
 }

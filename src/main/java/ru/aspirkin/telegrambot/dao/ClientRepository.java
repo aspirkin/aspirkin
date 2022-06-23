@@ -14,4 +14,5 @@ import ru.aspirkin.telegrambot.entities.Client;
 @RepositoryRestResource(path = "clients", collectionResourceRel = "clients")
 public interface ClientRepository extends JpaRepository<Client, Long>
 {
+    Client findFirstByFullName(String fullName);
 }
